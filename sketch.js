@@ -1,8 +1,8 @@
 var streams = [];
 var symbolSize = 38;
 var gap_between_symbols = 0;
-var MIN_SPEED = 2;
-var MAX_SPEED = 8;
+var MIN_SPEED = 1;
+var MAX_SPEED = 7;
 var stream_length_max = 32;
 var background_blend_value = 68;
 var CLOCK_FONT_SIZE;

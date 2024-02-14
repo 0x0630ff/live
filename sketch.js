@@ -1,30 +1,11 @@
 var streams = [];
-var symbolSize = 24;
+var symbolSize = 38;
 var gap_between_symbols = 0;
-var MIN_SPEED = 1;
-var MAX_SPEED = 6;
-var stream_length_max = 64;
-var background_blend_value = 62
-
-// function windowResized() {
-// var last_leng = streams.length;
-// resizeCanvas(windowWidth, windowHeight);
-// console.log("NEW WINDOW SIZE");
-// console.log(streams.length)
-// streams.length = round(width / symbolSize);
-// var x = 0;
-// var y = 0;
-// streams.forEach(function (stream) {
-//     stream.generateSymbols(x, y);
-// });
-// for (var i = 0; i <= streams.length; i++) {
-//     // var stream = new kStream();
-//     stream.generateSymbols(x, y);
-//     streams.push(stream);
-//     x += symbolSize + gap_between_symbols;
-// }
-// }
-
+var MIN_SPEED = 2;
+var MAX_SPEED = 8;
+var stream_length_max = 32;
+var background_blend_value = 68;
+var CLOCK_FONT_SIZE;
 var time_now;
 
 function startTime() {
@@ -34,9 +15,27 @@ function startTime() {
     let s = today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
-    // document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
-    time_now = h + ":" + m + ":" + s;
-    setTimeout(startTime, 1000);
+
+    var ampm = " AM";
+
+    if (h > 12) {
+        h = h - 12;
+        ampm = " PM";
+    }
+
+    var time_now_out = h + ":" + m + ":" + s + ampm; //
+
+    if (round(random(0, 4)) == 0) {
+        var spot = round(random(0, time_now_out.length));
+
+        time_now = String(time_now_out.substring(0, spot) + String.fromCharCode(
+            0x30A0 + round(random(0, 96))
+        ) + time_now_out.substring(spot + 1, time_now_out.length));
+    }
+    else {
+        time_now = time_now_out;
+    }
+    setTimeout(startTime, 200);
 }
 
 function checkTime(i) {
@@ -62,6 +61,8 @@ function setup() {
         streams.push(stream);
         x += symbolSize + gap_between_symbols;
     }
+    CLOCK_FONT_SIZE = window.innerWidth / 10;
+
     startTime();
 }
 
@@ -81,13 +82,24 @@ function draw() {
     streams.forEach(function (stream) {
         stream.render();
     });
-    textSize(280);
+    textSize(CLOCK_FONT_SIZE);
+
+    drawingContext.shadowColor = color(0, 90, 10);
+    drawingContext.shadowBlur = 120;
+    textStyle(BOLD);
+    textFont("Roboto Mono");
+    fill(0, 90, 0);
+    text(time_now, (width / 2), (height / 2) - 0);
+
+    drawingContext.shadowColor = color(0, 0, 0);
+    drawingContext.shadowBlur = 0;
+    textStyle(BOLD);
+    textFont("Roboto Mono");
     fill(0, 0, 0);
-    text(time_now, (width / 2), (height / 2) + 10);
-    // text("WAKE UP", (width / 2), (height / 2) - 0);
-    // text("NEO", (width / 2), (height / 2) + 600);
+    text(time_now, (width / 2), (height / 2) - 0);
     textAlign(CENTER);
     textSize(symbolSize);
+    textStyle(NORMAL);
 }
 
 // symbol for kana

@@ -1,5 +1,5 @@
 var streams = [];
-var symbolSize = 28;
+var symbolSize = 24;
 var gap_between_symbols = 0;
 var MIN_SPEED = 1;
 var MAX_SPEED = 6;
@@ -81,7 +81,7 @@ function draw() {
     streams.forEach(function (stream) {
         stream.render();
     });
-    textSize(780);
+    textSize(280);
     fill(0, 0, 0);
     text(time_now, (width / 2), (height / 2) + 10);
     // text("WAKE UP", (width / 2), (height / 2) - 0);

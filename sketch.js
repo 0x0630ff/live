@@ -13,7 +13,7 @@ var time_now_out;
 function preload() {
     // Ensure the .ttf or .otf font stored in the assets directory
     // is loaded before setup() and draw() are called
-    roboto_mono = loadFont('RobotoMono.ttf');
+    // roboto_mono = loadFont('RobotoMono.ttf');
 }
 
 function startTime() {

@@ -8,6 +8,7 @@ var background_blend_value = 68;
 var CLOCK_FONT_SIZE;
 var time_now;
 var roboto_mono; // font
+var time_now_out;
 
 function preload() {
     // Ensure the .ttf or .otf font stored in the assets directory
@@ -30,19 +31,28 @@ function startTime() {
         ampm = " PM";
     }
 
-    var time_now_out = h + ":" + m + ":" + s + ampm; //
+    time_now_out = h.toString().padStart(2, '0') + ":" + m.toString().padStart(2, '0') + ":" + s.toString().padStart(2, '0') + ampm; //
 
+    // time_now = time_now_out;
+
+    setTimeout(startTime, 1000);
+}
+
+function start_kana_glitching() {
+    console.log("random kana_char");
     if (round(random(0, 4)) == 0) {
+        kana_char = String.fromCharCode(0x30A0 + round(random(0, 96)));
+
+
         var spot = round(random(0, time_now_out.length));
 
-        time_now = String(time_now_out.substring(0, spot) + String.fromCharCode(
-            0x30A0 + round(random(0, 96))
-        ) + time_now_out.substring(spot + 1, time_now_out.length));
+        time_now = String(time_now_out.substring(0, spot) + kana_char + time_now_out.substring(spot + 1, time_now_out.length));
+        setTimeout(start_kana_glitching, 125);
     }
     else {
         time_now = time_now_out;
+        setTimeout(start_kana_glitching, round(random(200, 800)));
     }
-    setTimeout(startTime, 200);
 }
 
 function checkTime(i) {
@@ -71,6 +81,7 @@ function setup() {
     CLOCK_FONT_SIZE = window.innerWidth / 10;
 
     startTime();
+    start_kana_glitching();
 }
 
 function keyPressed() {
@@ -88,8 +99,8 @@ function draw() {
     });
     textSize(CLOCK_FONT_SIZE);
 
-    drawingContext.shadowColor = color(0, 60, 8);
-    drawingContext.shadowBlur = 300;
+    drawingContext.shadowColor = color(0, 70, 18);
+    drawingContext.shadowBlur = 100;
     textStyle(BOLD);
     fill(0, 90, 0);
     text(time_now, (width / 2), (height / 2) - 0);
@@ -97,7 +108,7 @@ function draw() {
     drawingContext.shadowColor = color(0, 0, 0);
     drawingContext.shadowBlur = 0;
     textStyle(BOLD);
-    fill(0, 0, 0);
+    fill(10, 0, 10);
     text(time_now, (width / 2), (height / 2) - 0);
     textAlign(CENTER);
     textSize(symbolSize);

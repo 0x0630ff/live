@@ -7,6 +7,13 @@ var stream_length_max = 32;
 var background_blend_value = 68;
 var CLOCK_FONT_SIZE;
 var time_now;
+var roboto_mono; // font
+
+function preload() {
+    // Ensure the .ttf or .otf font stored in the assets directory
+    // is loaded before setup() and draw() are called
+    roboto_mono = loadFont('RobotoMono.ttf');
+}
 
 function startTime() {
     const today = new Date();
@@ -71,9 +78,6 @@ function keyPressed() {
         console.log("SPACEBAR");
         // change color?
 
-        // var fs = fullscreen();
-        // fullscreen(!fs);
-        // resizeCanvas(window.innerWidth, window.innerHeight, true);
     }
 }
 
@@ -84,17 +88,15 @@ function draw() {
     });
     textSize(CLOCK_FONT_SIZE);
 
-    drawingContext.shadowColor = color(0, 90, 10);
-    drawingContext.shadowBlur = 120;
+    drawingContext.shadowColor = color(0, 60, 8);
+    drawingContext.shadowBlur = 300;
     textStyle(BOLD);
-    textFont("Roboto Mono");
     fill(0, 90, 0);
     text(time_now, (width / 2), (height / 2) - 0);
 
     drawingContext.shadowColor = color(0, 0, 0);
     drawingContext.shadowBlur = 0;
     textStyle(BOLD);
-    textFont("Roboto Mono");
     fill(0, 0, 0);
     text(time_now, (width / 2), (height / 2) - 0);
     textAlign(CENTER);

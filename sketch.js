@@ -1,10 +1,10 @@
 var streams = [];
-var symbolSize = 48;
+var symbolSize = 28;
 var gap_between_symbols = 0;
 var MIN_SPEED = 1;
 var MAX_SPEED = 6;
-var stream_length_max = 128;
-var background_blend_value = 65
+var stream_length_max = 64;
+var background_blend_value = 62
 
 // function windowResized() {
 // var last_leng = streams.length;
@@ -83,7 +83,7 @@ function draw() {
     });
     textSize(780);
     fill(0, 0, 0);
-    text(time_now, (width / 2), (height / 2) - 0);
+    text(time_now, (width / 2), (height / 2) + 10);
     // text("WAKE UP", (width / 2), (height / 2) - 0);
     // text("NEO", (width / 2), (height / 2) + 600);
     textAlign(CENTER);
